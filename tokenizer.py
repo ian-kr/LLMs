@@ -25,10 +25,14 @@ pre = re.split(r'([,.:;?_!"()\']|--|\s)', raw_text)
 
 #print(preprocessed[:20])
 
-all_words = sorted(set(pre))
+all_words = sorted(list(set(pre)))
+all_words.extend(["<|endoftext|>", "<|unk|>"])
 vocab_size = len(all_words)
 
 vocab = {token:integer for integer, token in enumerate(all_words)}
+
+for i,item in enumerate(list(vocab.items())):
+    print(item)
 
 tokenizer = TokenizerV1(vocab)
 ids = tokenizer.encode(raw_text)
